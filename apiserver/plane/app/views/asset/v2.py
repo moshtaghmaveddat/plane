@@ -116,8 +116,8 @@ class UserAssetsV2Endpoint(BaseAPIView):
         size = int(request.data.get("size", settings.FILE_SIZE_LIMIT))
         entity_type = request.data.get("entity_type", False)
 
-        # Check if the file size is within the limit
-        size_limit = min(size, settings.FILE_SIZE_LIMIT)
+        # No file size restriction
+        size_limit = size
 
         #  Check if the entity type is allowed
         if not entity_type or entity_type not in ["USER_AVATAR", "USER_COVER"]:
@@ -357,8 +357,8 @@ class WorkspaceFileAssetEndpoint(BaseAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Get the size limit
-        size_limit = min(settings.FILE_SIZE_LIMIT, size)
+        # No file size restriction
+        size_limit = size
 
         # Get the workspace
         workspace = Workspace.objects.get(slug=slug)
@@ -558,8 +558,8 @@ class ProjectAssetEndpoint(BaseAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        # Get the size limit
-        size_limit = min(settings.FILE_SIZE_LIMIT, size)
+        # No file size restriction
+        size_limit = size
 
         # Get the workspace
         workspace = Workspace.objects.get(slug=slug)

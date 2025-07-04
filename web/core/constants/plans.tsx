@@ -62,7 +62,7 @@ export const ComingSoonBadge = ({ className }: { className?: string }) => (
 
 export const PLANS_LIST: TPlanePlans[] = ["free", "one", "pro", "business", "enterprise"];
 
-export const PLANS_COMPARISON_LIST: TPlansComparisonDetails[] = [
+const ORIGINAL_PLANS_COMPARISON_LIST: TPlansComparisonDetails[] = [
   {
     id: "project-work-tracking",
     title: "Project + work tracking",
@@ -1247,6 +1247,26 @@ export const PLANS_COMPARISON_LIST: TPlansComparisonDetails[] = [
   },
 ];
 
+const unlockFreePlanFeatures = (
+  list: TPlansComparisonDetails[],
+): TPlansComparisonDetails[] =>
+  list.map((section) => ({
+    ...section,
+    features: section.features.map((feature) => {
+      const { cloud } = feature;
+      const fallback =
+        cloud.enterprise ?? cloud.business ?? cloud.pro ?? cloud.one ?? true;
+      return {
+        ...feature,
+        cloud: { ...cloud, free: cloud.free || fallback },
+      };
+    }),
+  }));
+
+export const PLANS_COMPARISON_LIST = unlockFreePlanFeatures(
+  ORIGINAL_PLANS_COMPARISON_LIST,
+);
+
 export const PLANE_PLANS: PlanePlans = {
   planDetails: {
     free: {
@@ -1302,3 +1322,5 @@ export const PLANE_PLANS: PlanePlans = {
   },
   planComparison: PLANS_COMPARISON_LIST,
 };
+
+
