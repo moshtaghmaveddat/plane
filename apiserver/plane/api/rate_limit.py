@@ -7,7 +7,8 @@ from rest_framework.throttling import SimpleRateThrottle
 
 class ApiKeyRateThrottle(SimpleRateThrottle):
     scope = "api_key"
-    rate = os.environ.get("API_KEY_RATE_LIMIT", "60/minute")
+    # Disable API key throttling
+    rate = None
 
     def get_cache_key(self, request, view):
         # Retrieve the API key from the request header
@@ -48,7 +49,8 @@ class ApiKeyRateThrottle(SimpleRateThrottle):
 
 class ServiceTokenRateThrottle(SimpleRateThrottle):
     scope = "service_token"
-    rate = "300/minute"
+    # Disable service token throttling
+    rate = None
 
     def get_cache_key(self, request, view):
         # Retrieve the API key from the request header

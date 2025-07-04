@@ -971,7 +971,8 @@ class IssueAttachmentEndpoint(BaseAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        size_limit = min(size, settings.FILE_SIZE_LIMIT)
+        # No file size restriction
+        size_limit = size
 
         if not type or type not in settings.ATTACHMENT_MIME_TYPES:
             return Response(

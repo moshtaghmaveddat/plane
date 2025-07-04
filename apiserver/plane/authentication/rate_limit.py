@@ -11,7 +11,8 @@ from plane.authentication.adapter.error import (
 
 
 class AuthenticationThrottle(AnonRateThrottle):
-    rate = "30/minute"
+    """Throttle disabled for unrestricted authentication requests."""
+    rate = None
     scope = "authentication"
 
     def throttle_failure_view(self, request, *args, **kwargs):

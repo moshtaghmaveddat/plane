@@ -104,8 +104,8 @@ class IssueAttachmentV2Endpoint(BaseAPIView):
         # asset key
         asset_key = f"{workspace.id}/{uuid.uuid4().hex}-{name}"
 
-        # Get the size limit
-        size_limit = min(size, settings.FILE_SIZE_LIMIT)
+        # No file size restriction
+        size_limit = size
 
         # Create a File Asset
         asset = FileAsset.objects.create(
